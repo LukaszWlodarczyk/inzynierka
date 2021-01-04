@@ -7,6 +7,7 @@ from keras.layers import Dense
 from keras.layers import LSTM
 from keras.layers import Dropout
 from sklearn.preprocessing import MinMaxScaler
+from joblib import dump
 from my_requests import get_hourly_last_3_months_data
 
 ONE_BATCH_SIZE = 30
@@ -64,7 +65,8 @@ loss = history.history['loss']
 val_loss = history.history['val_loss']
 epochs = range(len(loss))
 
-model.save(f'saved_model/model_for_hours_val_lose_{val_loss[-1]}')
+model.save(f'../saved_model/model_for_hours_val_lose_{val_loss[-1]}')
+dump(sc, f'../saved_model/scaler_for_model_for_hours_val_lose_{val_loss[-1]}')
 
 
 plt.figure()

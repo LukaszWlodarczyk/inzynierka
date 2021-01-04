@@ -7,6 +7,7 @@ from keras.layers import Dense
 from keras.layers import LSTM
 from keras.layers import Dropout
 from sklearn.preprocessing import MinMaxScaler
+from joblib import dump
 from my_requests import get_all_historical_data
 from functions import load_standard_data_frame
 
@@ -17,7 +18,6 @@ EPOCHS = 30
 
 # load Dataframe
 data = load_standard_data_frame(get_all_historical_data())
-print(data.head())
 
 # Scaling data
 sc = MinMaxScaler(feature_range=(0, 1))
@@ -65,7 +65,8 @@ loss = history.history['loss']
 val_loss = history.history['val_loss']
 epochs = range(len(loss))
 
-model.save(f'saved_model/model_for_days_from_full_data__val_lose_{val_loss[-1]}')
+model.save(f'../saved_model/model_for_days_from_full_data__val_lose_{val_loss[-1]}')
+dump(sc, f'../saved_model/scaler_for_model_for_full_data_days_val_lose_{val_loss[-1]}')
 
 
 plt.figure()
