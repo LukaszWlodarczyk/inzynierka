@@ -44,6 +44,7 @@ for i in range(ONE_BATCH_SIZE, len(test_set)):
     Y_test.append(test_set[i, 0])
 X_test, y_test = np.array(X_test), np.array(Y_test)
 X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
+print(X_test.shape)
 
 
 # Build LSTM model
