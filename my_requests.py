@@ -44,3 +44,18 @@ def get_hourly_last_3_months_data(crypto_currency=CRYPTO_CURRENCY['BTC'], standa
 def get_minute_last_day_data(crypto_currency=CRYPTO_CURRENCY['BTC'], standard_currency=REAL_CURRENCY['USD']):
     res = requests.get(f'{endpoint}v2/histominute?fsym={crypto_currency}&tsym={standard_currency}')
     return res.json()['Data']['Data']
+
+
+def get_minute_last_day_data_with_limit(limit, crypto_currency=CRYPTO_CURRENCY['BTC'], standard_currency=REAL_CURRENCY['USD']):
+    res = requests.get(f'{endpoint}v2/histominute?fsym={crypto_currency}&tsym={standard_currency}&limit={limit}')
+    return res.json()['Data']['Data']
+
+
+def get_hourly_last_3_months_data_with_limit(limit, crypto_currency=CRYPTO_CURRENCY['BTC'], standard_currency=REAL_CURRENCY['USD']):
+    res = requests.get(f'{endpoint}v2/histohour?fsym={crypto_currency}&tsym={standard_currency}&limit={limit}')
+    return res.json()['Data']['Data']
+
+
+def get_all_historical_data_with_limit(limit,crypto_currency=CRYPTO_CURRENCY['BTC'], standard_currency=REAL_CURRENCY['USD']):
+    res = requests.get(f'{endpoint}v2/histoday?fsym={crypto_currency}&tsym={standard_currency}&limit={limit}')
+    return res.json()['Data']['Data']
