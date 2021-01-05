@@ -1,5 +1,3 @@
-from builtins import print
-
 import PySimpleGUI as sg
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
@@ -7,7 +5,7 @@ import matplotlib
 
 from my_requests import get_current_price, get_yesterday_price, CRYPTO_CURRENCY, REAL_CURRENCY
 # from GUI.gui_service import dupa
-from GUI.menu import menubar, handle_menu_click
+from GUI.menu import menubar, handle_menu_click, buttons_menu_layout
 
 matplotlib.use('TkAgg')
 
@@ -43,12 +41,13 @@ text_change = sg.Text(f'Change: {change(default_selected_crypto, default_selecte
 
 main_layout = [
     [menubar],
+    [buttons_menu_layout],
     [sg.Text('Cryptocurrency: '), cb_crypto_value],
     [sg.Text('Real currency: '), cb_currency],
     [text_current_price],
     [text_yesterday_price],
     [text_change],
-    [sg.Canvas(key='_CANVAS_')]
+    # [sg.Canvas(key='_CANVAS_')]
 ]
 
 
@@ -59,21 +58,21 @@ def draw_figure(canvas, figure, loc=(0,0)):
     return figure_canvas_agg
 
 
-fig = plt.Figure(figsize=(8, 7), dpi=100)
-plot = fig.add_subplot(111)
-plot.plot(y_test, color='blue', label='Predicted price')
-plot.plot(y_test, color="red", label="Real price")
-plot.set_title("Bitcoin price prediction")
-plot.set_xlabel('Timestamp')
-plot.set_ylabel('Price [PLN]')
-plot.legend()
+# fig = plt.Figure(figsize=(8, 7), dpi=100)
+# plot = fig.add_subplot(111)
+# plot.plot(y_test, color='blue', label='Predicted price')
+# plot.plot(y_test, color="red", label="Real price")
+# plot.set_title("Bitcoin price prediction")
+# plot.set_xlabel('Timestamp')
+# plot.set_ylabel('Price [PLN]')
+# plot.legend()
 
 sg.ChangeLookAndFeel('Reddit')
 sg.theme_background_color('white')
 sg.SetOptions(element_padding=(0, 8))
 
 window = sg.Window(title="Crypto$", layout=main_layout, margins=(50,50), resizable=True, finalize=True)
-fig_canvas_agg = draw_figure(window['_CANVAS_'].TKCanvas, fig, loc=(0, 0))
+# fig_canvas_agg = draw_figure(window['_CANVAS_'].TKCanvas, fig, loc=(0, 0))
 
 
 def real_currency_change(values):
@@ -105,7 +104,7 @@ def main_loop():
         elif event == '_CB_CRYPTO-CURRENCY_':
             crypto_currency_change(values)
         else:
-            handle_menu_click(event)
+            pass
 
     window.close()
 
