@@ -33,7 +33,7 @@ def get_yesterday_price(crypto_currency=CRYPTO_CURRENCY['BTC'], standard_currenc
 
 def get_full_current_info(crypto_currency=CRYPTO_CURRENCY['BTC'], standard_currency=REAL_CURRENCY['USD']):
     res = requests.get(f'{endpoint}pricemultifull?fsyms={crypto_currency}&tsyms={standard_currency}')
-    return res.json()['RAW'][crypto_currency][standard_currency], res.json()['DISPLAY'][crypto_currency][standard_currency]
+    return res.json()['RAW'][crypto_currency][standard_currency], res.json()['RAW'][crypto_currency][standard_currency]
 
 
 def get_hourly_last_3_months_data(crypto_currency=CRYPTO_CURRENCY['BTC'], standard_currency=REAL_CURRENCY['USD']):
