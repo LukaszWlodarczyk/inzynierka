@@ -30,6 +30,15 @@ def get_current_data(crypto_currency='BTC', real_currency='USD'):
     return price, highday, lowday, openday, volumeday
 
 
+def get_exchange_rate(from_currency, to_currency):
+    price1 = get_current_price(CRYPTO_CURRENCY['BTC'], from_currency)
+    price2 = get_current_price(CRYPTO_CURRENCY['BTC'], to_currency)
+
+    print(price1, price2, price2/price1)
+
+    return round(price2/price1, 4)
+
+
 def get_predicted_data_from_only_price_model(days_to_predict, data_type=DATA_TYPE['MINUTES']):
     if data_type == DATA_TYPE['DAYS']:
         scaler, model = models_loader.get_daily_model()

@@ -98,22 +98,22 @@ layout_home_tile_BTC = [
         [sg.Column([
             [sg.Column([[
                 sg.Column([
-                    [sg.Text('price:'), sg.Text('00000000 ###', key='-TX-BTC-0-')],
+                    [sg.Text('price:'), sg.Text('000000000000 ###', key='-TX-BTC-0-')],
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('today high:'), sg.Text('00000000 ###', key='-TX-BTC-1-')],
+                    [sg.Text('today high:'), sg.Text('000000000000 ###', key='-TX-BTC-1-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BTC-1-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('today low:'), sg.Text('00000000 ###', key='-TX-BTC-2-')],
+                    [sg.Text('today low:'), sg.Text('000000000000 ###', key='-TX-BTC-2-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BTC-2-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('today open:'), sg.Text('00000000 ###', key='-TX-BTC-3-')],
+                    [sg.Text('today open:'), sg.Text('000000000000 ###', key='-TX-BTC-3-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BTC-3-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('volume:'), sg.Text('000000000000 ###', key='-TX-BTC-4-')],
+                    [sg.Text('volume:'), sg.Text('0000000000000000 ###', key='-TX-BTC-4-')],
                     [sg.Text('volume: +0000000000000000000 ###', key='-TX-BTC-4-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
@@ -125,27 +125,27 @@ layout_home_tile_BTC = [
 
             [sg.Column([[
                 sg.Column([
-                    [sg.Text('one DAY ago:'), sg.Text('00000000 ###', key='-TX-BTC-HIST-D-')],
+                    [sg.Text('one DAY ago:'), sg.Text('000000000000 ###', key='-TX-BTC-HIST-D-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BTC-HIST-D-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('one HOUR ago:'), sg.Text('00000000 ###', key='-TX-BTC-HIST-H-')],
+                    [sg.Text('one HOUR ago:'), sg.Text('000000000000 ###', key='-TX-BTC-HIST-H-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BTC-HIST-H-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('one MINUTE ago:'), sg.Text('00000000 ###', key='-TX-BTC-HIST-M-')],
+                    [sg.Text('one MINUTE ago:'), sg.Text('000000000000 ###', key='-TX-BTC-HIST-M-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BTC-HIST-M-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('price for DAY:'), sg.Text('00000000 ###', key='-TX-BTC-PRED-D-')],
+                    [sg.Text('price for DAY:'), sg.Text('000000000000 ###', key='-TX-BTC-PRED-D-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BTC-PRED-D-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('price for HOUR:'), sg.Text('00000000 ###', key='-TX-BTC-PRED-H-')],
+                    [sg.Text('price for HOUR:'), sg.Text('000000000000 ###', key='-TX-BTC-PRED-H-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BTC-PRED-H-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('price for MINUTE:'), sg.Text('00000000 ###', key='-TX-BTC-PRED-M-')],
+                    [sg.Text('price for MINUTE:'), sg.Text('000000000000 ###', key='-TX-BTC-PRED-M-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BTC-PRED-M-CHANGE-')]
                 ], size=home_small_tile_size),
             ]])]
@@ -158,22 +158,22 @@ layout_home_tile_ETH = [
         [sg.Column([
             [sg.Column([[
                 sg.Column([
-                    [sg.Text('price:'), sg.Text('00000000 ###', key='-TX-ETH-0-')],
+                    [sg.Text('price:'), sg.Text('000000000000 ###', key='-TX-ETH-0-')],
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('today high:'), sg.Text('00000000 ###', key='-TX-ETH-1-')],
+                    [sg.Text('today high:'), sg.Text('000000000000 ###', key='-TX-ETH-1-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-ETH-1-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('today low:'), sg.Text('00000000 ###', key='-TX-ETH-2-')],
+                    [sg.Text('today low:'), sg.Text('000000000000 ###', key='-TX-ETH-2-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-ETH-2-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('today open:'), sg.Text('00000000 ###', key='-TX-ETH-3-')],
+                    [sg.Text('today open:'), sg.Text('000000000000 ###', key='-TX-ETH-3-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-ETH-3-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('volume:'), sg.Text('000000000000 ###', key='-TX-ETH-4-')],
+                    [sg.Text('volume:'), sg.Text('0000000000000000 ###', key='-TX-ETH-4-')],
                     [sg.Text('volume: +0000000000000000000 ###', key='-TX-ETH-4-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
@@ -185,27 +185,27 @@ layout_home_tile_ETH = [
 
             [sg.Column([[
                 sg.Column([
-                    [sg.Text('one DAY ago:'), sg.Text('00000000 ###', key='-TX-ETH-HIST-D-')],
+                    [sg.Text('one DAY ago:'), sg.Text('000000000000 ###', key='-TX-ETH-HIST-D-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-ETH-HIST-D-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('one HOUR ago:'), sg.Text('00000000 ###', key='-TX-ETH-HIST-H-')],
+                    [sg.Text('one HOUR ago:'), sg.Text('000000000000 ###', key='-TX-ETH-HIST-H-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-ETH-HIST-H-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('one MINUTE ago:'), sg.Text('00000000 ###', key='-TX-ETH-HIST-M-')],
+                    [sg.Text('one MINUTE ago:'), sg.Text('000000000000 ###', key='-TX-ETH-HIST-M-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-ETH-HIST-M-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('price for DAY:'), sg.Text('00000000 ###', key='-TX-ETH-PRED-D-')],
+                    [sg.Text('price for DAY:'), sg.Text('000000000000 ###', key='-TX-ETH-PRED-D-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-ETH-PRED-D-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('price for HOUR:'), sg.Text('00000000 ###', key='-TX-ETH-PRED-H-')],
+                    [sg.Text('price for HOUR:'), sg.Text('000000000000 ###', key='-TX-ETH-PRED-H-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-ETH-PRED-H-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('price for MINUTE:'), sg.Text('00000000 ###', key='-TX-ETH-PRED-M-')],
+                    [sg.Text('price for MINUTE:'), sg.Text('000000000000 ###', key='-TX-ETH-PRED-M-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-ETH-PRED-M-CHANGE-')]
                 ], size=home_small_tile_size),
             ]])]
@@ -218,22 +218,22 @@ layout_home_tile_LTC = [
         [sg.Column([
             [sg.Column([[
                 sg.Column([
-                    [sg.Text('price:'), sg.Text('00000000 ###', key='-TX-LTC-0-')],
+                    [sg.Text('price:'), sg.Text('000000000000 ###', key='-TX-LTC-0-')],
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('today high:'), sg.Text('00000000 ###', key='-TX-LTC-1-')],
+                    [sg.Text('today high:'), sg.Text('000000000000 ###', key='-TX-LTC-1-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-LTC-1-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('today low:'), sg.Text('00000000 ###', key='-TX-LTC-2-')],
+                    [sg.Text('today low:'), sg.Text('000000000000 ###', key='-TX-LTC-2-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-LTC-2-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('today open:'), sg.Text('00000000 ###', key='-TX-LTC-3-')],
+                    [sg.Text('today open:'), sg.Text('000000000000 ###', key='-TX-LTC-3-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-LTC-3-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('volume:'), sg.Text('000000000000 ###', key='-TX-LTC-4-')],
+                    [sg.Text('volume:'), sg.Text('0000000000000000 ###', key='-TX-LTC-4-')],
                     [sg.Text('volume: +0000000000000000000 ###', key='-TX-LTC-4-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
@@ -245,27 +245,27 @@ layout_home_tile_LTC = [
 
             [sg.Column([[
                 sg.Column([
-                    [sg.Text('one DAY ago:'), sg.Text('00000000 ###', key='-TX-LTC-HIST-D-')],
+                    [sg.Text('one DAY ago:'), sg.Text('000000000000 ###', key='-TX-LTC-HIST-D-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-LTC-HIST-D-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('one HOUR ago:'), sg.Text('00000000 ###', key='-TX-LTC-HIST-H-')],
+                    [sg.Text('one HOUR ago:'), sg.Text('000000000000 ###', key='-TX-LTC-HIST-H-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-LTC-HIST-H-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('one MINUTE ago:'), sg.Text('00000000 ###', key='-TX-LTC-HIST-M-')],
+                    [sg.Text('one MINUTE ago:'), sg.Text('000000000000 ###', key='-TX-LTC-HIST-M-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-LTC-HIST-M-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('price for DAY:'), sg.Text('00000000 ###', key='-TX-LTC-PRED-D-')],
+                    [sg.Text('price for DAY:'), sg.Text('000000000000 ###', key='-TX-LTC-PRED-D-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-LTC-PRED-D-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('price for HOUR:'), sg.Text('00000000 ###', key='-TX-LTC-PRED-H-')],
+                    [sg.Text('price for HOUR:'), sg.Text('000000000000 ###', key='-TX-LTC-PRED-H-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-LTC-PRED-H-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('price for MINUTE:'), sg.Text('00000000 ###', key='-TX-LTC-PRED-M-')],
+                    [sg.Text('price for MINUTE:'), sg.Text('000000000000 ###', key='-TX-LTC-PRED-M-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-LTC-PRED-M-CHANGE-')]
                 ], size=home_small_tile_size),
             ]])]
@@ -278,22 +278,22 @@ layout_home_tile_BCH = [
         [sg.Column([
             [sg.Column([[
                 sg.Column([
-                    [sg.Text('price:'), sg.Text('00000000 ###', key='-TX-BCH-0-')],
+                    [sg.Text('price:'), sg.Text('000000000000 ###', key='-TX-BCH-0-')],
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('today high:'), sg.Text('00000000 ###', key='-TX-BCH-1-')],
+                    [sg.Text('today high:'), sg.Text('000000000000 ###', key='-TX-BCH-1-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BCH-1-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('today low:'), sg.Text('00000000 ###', key='-TX-BCH-2-')],
+                    [sg.Text('today low:'), sg.Text('000000000000 ###', key='-TX-BCH-2-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BCH-2-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('today open:'), sg.Text('00000000 ###', key='-TX-BCH-3-')],
+                    [sg.Text('today open:'), sg.Text('000000000000 ###', key='-TX-BCH-3-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BCH-3-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('volume:'), sg.Text('000000000000 ###', key='-TX-BCH-4-')],
+                    [sg.Text('volume:'), sg.Text('0000000000000000 ###', key='-TX-BCH-4-')],
                     [sg.Text('volume: +0000000000000000000 ###', key='-TX-BCH-4-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
@@ -305,27 +305,27 @@ layout_home_tile_BCH = [
 
             [sg.Column([[
                 sg.Column([
-                    [sg.Text('one DAY ago:'), sg.Text('00000000 ###', key='-TX-BCH-HIST-D-')],
+                    [sg.Text('one DAY ago:'), sg.Text('000000000000 ###', key='-TX-BCH-HIST-D-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BCH-HIST-D-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('one HOUR ago:'), sg.Text('00000000 ###', key='-TX-BCH-HIST-H-')],
+                    [sg.Text('one HOUR ago:'), sg.Text('000000000000 ###', key='-TX-BCH-HIST-H-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BCH-HIST-H-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('one MINUTE ago:'), sg.Text('00000000 ###', key='-TX-BCH-HIST-M-')],
+                    [sg.Text('one MINUTE ago:'), sg.Text('000000000000 ###', key='-TX-BCH-HIST-M-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BCH-HIST-M-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('price for DAY:'), sg.Text('00000000 ###', key='-TX-BCH-PRED-D-')],
+                    [sg.Text('price for DAY:'), sg.Text('000000000000 ###', key='-TX-BCH-PRED-D-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BCH-PRED-D-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('price for HOUR:'), sg.Text('00000000 ###', key='-TX-BCH-PRED-H-')],
+                    [sg.Text('price for HOUR:'), sg.Text('000000000000 ###', key='-TX-BCH-PRED-H-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BCH-PRED-H-CHANGE-')]
                 ], size=home_small_tile_size),
                 sg.Column([
-                    [sg.Text('price for MINUTE:'), sg.Text('00000000 ###', key='-TX-BCH-PRED-M-')],
+                    [sg.Text('price for MINUTE:'), sg.Text('000000000000 ###', key='-TX-BCH-PRED-M-')],
                     [sg.Text('change: +000000 ### (+00,00%)', key='-TX-BCH-PRED-M-CHANGE-')]
                 ], size=home_small_tile_size),
             ]])]
@@ -361,32 +361,52 @@ window = sg.Window(title="Crypto$", layout=main_layout, element_padding=(0, 0), 
                    finalize=True)
 
 
+def set_tb_change_color(key, value):
+    if value > 0:
+        window[key].update(background_color="#00aa22")
+    elif value < 0:
+        window[key].update(background_color='#aa2200')
+    else:
+        window[key].update(background_color='#666666')
+
+
+
 def refresh_data(crypto, real):
+    print(f'Refresh {crypto} {real}')
     curr_data = get_current_data(crypto, real)
     hist_data = get_hist_data_with_limit_and_type(DATA_TYPE['MINUTES'], 1440, crypto, real)
-    # pred_data = []
-    print(curr_data)
+
 
     for i in range(len(curr_data)):
         if i != len(curr_data) - 1:
-            window[f'-TX-{crypto}-{i}-'].update(f'{curr_data[i]} {real}')
+
+            main_key = f'-TX-{crypto}-{i}-'
+            window[main_key].update(f'{round(curr_data[i], 2)} {real}')
             if i != 0:
                 temp_change_proc = round(100*curr_data[i]/curr_data[0]-100, 3)
                 temp_change = round(curr_data[i]-curr_data[0], 2)
-                window[f'-TX-{crypto}-{i}-CHANGE-'].update(f'change {temp_change} {real} {temp_change_proc}% ')
+                window[f'{main_key}CHANGE-'].update(f'change {temp_change} {real} {temp_change_proc}% ')
+                set_tb_change_color(f'{main_key}CHANGE-', temp_change)
         else:
             temp_volume = round(curr_data[i], 2)
             temp_volume2 = round(temp_volume*curr_data[0], 2)
             window[f'-TX-{crypto}-{i}-'].update(f'{temp_volume} {crypto}')
-            window[f'-TX-{crypto}-{i}-CHANGE-'].update(f'volume: {temp_volume2}')
+            window[f'-TX-{crypto}-{i}-CHANGE-'].update(f'volume: {temp_volume2} {real}')
 
     for data_type, index in {'D': 0, 'H': -60, 'M': -1}.items():
+        main_key = f'-TX-{crypto}-HIST-{data_type}-'
         temp_change_proc = round(100*hist_data[index]/curr_data[0]-100, 3)
         temp_change = round(hist_data[index]-curr_data[0], 2)
-        window[f'-TX-{crypto}-HIST-{data_type}-'].update(f'{hist_data[index]} {real}')
-        window[f'-TX-{crypto}-HIST-{data_type}-CHANGE-'].update(f'change: {temp_change} {real} {temp_change_proc}%')
+        window[main_key].update(f'{hist_data[index]} {real}')
+        window[f'{main_key}CHANGE-'].update(f'change: {temp_change} {real} {temp_change_proc}%')
+        set_tb_change_color(f'{main_key}CHANGE-', temp_change)
 
     # TODO: prediction labels
+    # pred_day_price = get_predicted_data_from_only_price_model(1, DATA_TYPE['DAYS'])
+    # pred_hour_price = get_predicted_data_from_only_price_model(1, DATA_TYPE['HOURS'])
+    # pred_minute_price = get_predicted_data_from_only_price_model(1, DATA_TYPE['MINUTES'])
+
+    # -TX - BCH - PRED - M -
 
 
 def theme_change(theme):
@@ -417,10 +437,16 @@ def theme_change(theme):
 
 
 # ====================== MAIN LOOP ============================================
+for crypto in CRYPTO_CURRENCY:
+    refresh_data(crypto, default_selected_real_currency)
+
+
+
 current_layout = '-MAIN-'
 while True:
     event, values = window.read()
     print(event, values)
+
     if event in (None, 'Exit'):
         break
 
@@ -434,8 +460,11 @@ while True:
     elif match('-B-.*-REFRESH-', event) is not None:
         refresh_data(event[3:6], values['-CB-REAL-CURRENCY-'])
 
+    elif event == '-CB-REAL-CURRENCY-':
+        for crypto in CRYPTO_CURRENCY:
+            refresh_data(crypto, values['-CB-REAL-CURRENCY-'])
+
     elif event == '-CB-THEME-':
-        print('a')
         if values['-CB-THEME-'] == 'MAROCHA':
             theme_change('DarkBlue8')
         elif values['-CB-THEME-'] == 'SIWY':
