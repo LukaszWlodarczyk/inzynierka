@@ -7,7 +7,7 @@ from contextlib import redirect_stdout
 pd.set_option('max_columns', None)
 
 
-def save_info(one_batch_size, batch_size, epochs, split_point, loss, val_loss, model):
+def save_info(one_batch_size, batch_size, epochs, split_point, loss, val_loss, model, crypto, type):
     info = f'single batch size: {one_batch_size} \n' \
            f'batch size: {batch_size} \n' \
            f'epochs: {epochs} \n' \
@@ -19,7 +19,7 @@ def save_info(one_batch_size, batch_size, epochs, split_point, loss, val_loss, m
            f'lowest validation loss: {min(val_loss)}  \n' \
            f'last validation loss: {val_loss[-1]}  \n'
 
-    with open(f'../saved_model/LTC_info_model_for_minutes_val_lose_{val_loss[-1]}.txt','w') as file:
+    with open(f'../saved_model/{crypto}_info_model_for_{type}_val_lose_{val_loss[-1]}.txt','w') as file:
         file.write(info)
         with redirect_stdout(file):
             model.summary()

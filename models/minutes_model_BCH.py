@@ -9,8 +9,8 @@ from my_requests import get_minute_last_day_data
 from functions import splitter, prepare_samples, draw_training_and_validation_lost_plot, save_info
 
 # Initial values
-ONE_BATCH_SIZE = 30
-BATCH_SIZE = 32
+ONE_BATCH_SIZE = 60
+BATCH_SIZE = 15
 EPOCHS = 30
 TRAIN_TEST_SPLIT_POINT = 0.8
 X_TRAIN = []
@@ -35,12 +35,12 @@ X_TRAIN, X_TEST, Y_TRAIN, Y_TEST = prepare_samples(ONE_BATCH_SIZE, training_set,
 
 # Build LSTM model
 model = Sequential()
-model.add(LSTM(units=32, return_sequences=True, input_shape=(X_TRAIN.shape[1], 1)))
-model.add(Dropout(0.2))
+model.add(LSTM(units=12, return_sequences=False, input_shape=(X_TRAIN.shape[1], 1)))
+model.add(Dropout(0.1))
 # model.add(LSTM(units=16, return_sequences=True))
 # model.add(Dropout(0.2))
-model.add(LSTM(units=8, return_sequences=False))
-model.add(Dropout(0.2))
+# model.add(LSTM(units=8, return_sequences=False))
+# model.add(Dropout(0.2))
 model.add(Dense(units=1))
 
 # Compile and fit model
@@ -55,5 +55,5 @@ epochs = range(len(loss))
 model.save(f'../saved_model/BCH_model_for_minutes_val_lose_{val_loss[-1]}')
 dump(sc, f'../saved_model/BCH_scaler_for_model_for_minutes_val_lose_{val_loss[-1]}')
 
-save_info(ONE_BATCH_SIZE,BATCH_SIZE,EPOCHS,TRAIN_TEST_SPLIT_POINT,loss,val_loss,model)
+save_info(ONE_BATCH_SIZE,BATCH_SIZE,EPOCHS,TRAIN_TEST_SPLIT_POINT,loss,val_loss,model,'BCH','minutes')
 draw_training_and_validation_lost_plot(epochs, loss, val_loss)
