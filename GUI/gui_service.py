@@ -55,7 +55,7 @@ def get_predicted_data_from_only_price_model(days_to_predict, data_type=DATA_TYP
     results = []
     for xd in response_frame:
         results.append(*xd)
-    return predict_n_days(model, scaler, days_to_predict, results, 6)
+    return predict_n_days(model, scaler, days_to_predict, results, 60)
 
 
 def get_hist_data_with_limit_and_type(data_type=DATA_TYPE['MINUTES'],

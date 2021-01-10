@@ -1,4 +1,6 @@
 import tensorflow as tf
+from GUI import gui_service
 
-physical_devices = tf.config.list_physical_devices('GPU')
-print(tf.config.experimental.get_device_details(physical_devices[0]))
+print(gui_service.get_predicted_data_from_only_price_model(7,'DAYS'))
+print(gui_service.get_predicted_data_from_only_price_model(7,'HOURS'))
+print(gui_service.get_predicted_data_from_only_price_model(14,'MINUTES'))
