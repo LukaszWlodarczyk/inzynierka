@@ -4,7 +4,7 @@ from re import match
 
 from GUI.gui_service import *
 from my_requests import REAL_CURRENCY
-from window_details import layout_minutes, layout_hours, layout_days
+from window_details import layout_details, handle_event
 
 # from GUI.menu import menubar, handle_menu_click
 
@@ -19,7 +19,7 @@ sg.LOOK_AND_FEEL_TABLE['Marocha'] = {'BACKGROUND': '#709053',
                                      'BORDER': 1, 'SLIDER_DEPTH': 0, 'PROGRESS_DEPTH': 0,
                                      }
 
-sg.theme('DarkGrey9')
+sg.theme(theme)
 
 cb_currency = sg.Combo(
     list(REAL_CURRENCY.values()),
@@ -81,15 +81,12 @@ left_bar = sg.Column([
 # -----------------------------------------------------------------------------
 top_bar = sg.Frame('Button menu', [
     [sg.Button('Main', disabled=True, key='-MAIN-', size=(10, 2), pad=(40, 5)),
-     sg.Button('Days', key='-DAYS-', size=(10, 2), pad=(40, 5)),
-     sg.Button('Hours', key='-HOURS-', size=(10, 2), pad=(40, 5)),
-     sg.Button('Minutes', key='-MINUTES-', size=(10, 2), pad=(40, 5))]
+     sg.Button('DAYS', key='-DAYS-', size=(10, 2), pad=(40, 5)),
+     sg.Button('HOURS', key='-HOURS-', size=(10, 2), pad=(40, 5)),
+     sg.Button('MINUTES', key='-MINUTES-', size=(10, 2), pad=(40, 5))]
 ], pad=(50, 10))
 
 # -----------------------------------------------------------------------------
-# home_tile_size = (1000, 250)
-# home_tile_col_size = (1200, 100)
-
 home_small_tile_size = (220, 50)
 home_tile_center_line_size = (150, 2)
 
@@ -114,7 +111,7 @@ layout_home_tile_BTC = [
                 ], size=home_small_tile_size),
                 sg.Column([
                     [sg.Text('volume:'), sg.Text('0000000000000000 ###', key='-TX-BTC-4-')],
-                    [sg.Text('volume: +0000000000000000000 ###', key='-TX-BTC-4-CHANGE-')]
+                    [sg.Text('volume:'), sg.Text('+0000000000000000000 ###', key='-TX-BTC-4-VOLUME-')]
                 ], size=home_small_tile_size),
                 sg.Column([
                     [sg.Button('REFRESH', size=(12, 2), key='-B-BTC-REFRESH-')]
@@ -174,7 +171,7 @@ layout_home_tile_ETH = [
                 ], size=home_small_tile_size),
                 sg.Column([
                     [sg.Text('volume:'), sg.Text('0000000000000000 ###', key='-TX-ETH-4-')],
-                    [sg.Text('volume: +0000000000000000000 ###', key='-TX-ETH-4-CHANGE-')]
+                    [sg.Text('volume:'), sg.Text('+0000000000000000000 ###', key='-TX-ETH-4-VOLUME-')]
                 ], size=home_small_tile_size),
                 sg.Column([
                     [sg.Button('REFRESH', size=(12, 2), key='-B-ETH-REFRESH-')]
@@ -234,7 +231,7 @@ layout_home_tile_LTC = [
                 ], size=home_small_tile_size),
                 sg.Column([
                     [sg.Text('volume:'), sg.Text('0000000000000000 ###', key='-TX-LTC-4-')],
-                    [sg.Text('volume: +0000000000000000000 ###', key='-TX-LTC-4-CHANGE-')]
+                    [sg.Text('volume:'), sg.Text('+0000000000000000000 ###', key='-TX-LTC-4-VOLUME-')]
                 ], size=home_small_tile_size),
                 sg.Column([
                     [sg.Button('REFRESH', size=(12, 2), key='-B-LTC-REFRESH-')]
@@ -294,7 +291,7 @@ layout_home_tile_BCH = [
                 ], size=home_small_tile_size),
                 sg.Column([
                     [sg.Text('volume:'), sg.Text('0000000000000000 ###', key='-TX-BCH-4-')],
-                    [sg.Text('volume: +0000000000000000000 ###', key='-TX-BCH-4-CHANGE-')]
+                    [sg.Text('volume:'), sg.Text('+0000000000000000000 ###', key='-TX-BCH-4-VOLUME-')]
                 ], size=home_small_tile_size),
                 sg.Column([
                     [sg.Button('REFRESH', size=(12, 2), key='-B-BCH-REFRESH-')]
@@ -343,9 +340,7 @@ layout_home = [
 # -----------------------------------------------------------------------------
 center = sg.Column([
     [sg.Column(layout_home, key='-COL-MAIN-'),
-     sg.Column(layout_days, visible=False, key='-COL-DAYS-'),
-     sg.Column(layout_hours, visible=False, key='-COL-HOURS-'),
-     sg.Column(layout_minutes, visible=False, key='-COL-MINUTES-')]
+     sg.Column(layout_details, visible=False, key='-COL-DETAILS-')]
 ])
 
 # -----------------------------------------------------------------------------
@@ -361,45 +356,20 @@ window = sg.Window(title="Crypto$", layout=main_layout, element_padding=(0, 0), 
                    finalize=True)
 
 
-def set_tb_change_color(key, value):
-    if value > 0:
-        window[key].update(background_color="#00aa22")
-    elif value < 0:
-        window[key].update(background_color='#aa2200')
-    else:
-        window[key].update(background_color='#666666')
-
-
-
 def refresh_data(crypto, real):
     print(f'Refresh {crypto} {real}')
     curr_data = get_current_data(crypto, real)
-    hist_data = get_hist_data_with_limit_and_type(DATA_TYPE['MINUTES'], 1440, crypto, real)
+    hist_data = get_hist_data_with_limit_and_type(DATA_TYPE['MINUTES'], 1439, crypto, real)
 
-
-    for i in range(len(curr_data)):
-        if i != len(curr_data) - 1:
-
-            main_key = f'-TX-{crypto}-{i}-'
-            window[main_key].update(f'{round(curr_data[i], 2)} {real}')
-            if i != 0:
-                temp_change_proc = round(100*curr_data[i]/curr_data[0]-100, 3)
-                temp_change = round(curr_data[i]-curr_data[0], 2)
-                window[f'{main_key}CHANGE-'].update(f'change {temp_change} {real} {temp_change_proc}% ')
-                set_tb_change_color(f'{main_key}CHANGE-', temp_change)
-        else:
-            temp_volume = round(curr_data[i], 2)
-            temp_volume2 = round(temp_volume*curr_data[0], 2)
-            window[f'-TX-{crypto}-{i}-'].update(f'{temp_volume} {crypto}')
-            window[f'-TX-{crypto}-{i}-CHANGE-'].update(f'volume: {temp_volume2} {real}')
+    refresh_current_data(curr_data, f'-TX-{crypto}-', crypto, real, window)
 
     for data_type, index in {'D': 0, 'H': -60, 'M': -1}.items():
         main_key = f'-TX-{crypto}-HIST-{data_type}-'
-        temp_change_proc = round(100*hist_data[index]/curr_data[0]-100, 3)
-        temp_change = round(hist_data[index]-curr_data[0], 2)
+        temp_change_proc = round(100 * hist_data[index] / curr_data[0] - 100, 3)
+        temp_change = round(hist_data[index] - curr_data[0], 2)
         window[main_key].update(f'{hist_data[index]} {real}')
         window[f'{main_key}CHANGE-'].update(f'change: {temp_change} {real} {temp_change_proc}%')
-        set_tb_change_color(f'{main_key}CHANGE-', temp_change)
+        set_tb_change_color(window, f'{main_key}CHANGE-', temp_change)
 
     # TODO: prediction labels
     # pred_day_price = get_predicted_data_from_only_price_model(1, DATA_TYPE['DAYS'])
@@ -437,9 +407,9 @@ def theme_change(theme):
 
 
 # ====================== MAIN LOOP ============================================
-for crypto in CRYPTO_CURRENCY:
-    refresh_data(crypto, default_selected_real_currency)
-
+# TODO: remove comments
+# for crypto in CRYPTO_CURRENCY:
+#     refresh_data(crypto, default_selected_real_currency)
 
 
 current_layout = '-MAIN-'
@@ -449,27 +419,37 @@ while True:
 
     if event in (None, 'Exit'):
         break
-
-    elif event in ['-MAIN-', '-DAYS-', '-HOURS-', '-MINUTES-']:
-        window[current_layout].update(disabled=False)
-        window[f'-COL{current_layout}'].update(visible=False)
-        window[event].update(disabled=True)
-        window[f'-COL{event}'].update(visible=True)
-        current_layout = event
-
-    elif match('-B-.*-REFRESH-', event) is not None:
-        refresh_data(event[3:6], values['-CB-REAL-CURRENCY-'])
-
-    elif event == '-CB-REAL-CURRENCY-':
-        for crypto in CRYPTO_CURRENCY:
-            refresh_data(crypto, values['-CB-REAL-CURRENCY-'])
-
-    elif event == '-CB-THEME-':
-        if values['-CB-THEME-'] == 'MAROCHA':
-            theme_change('DarkBlue8')
-        elif values['-CB-THEME-'] == 'SIWY':
-            theme_change('DarkTeal4')
-
     else:
-        pass
+        if event in ['-MAIN-', '-DAYS-', '-HOURS-', '-MINUTES-']:
+            if event == '-MAIN-':
+                window['-MAIN-'].update(disabled=True)
+                window[current_layout].update(disabled=False)
+                window['-COL-MAIN-'].update(visible=True)
+                window['-COL-DETAILS-'].update(visible=False)
+                for x in CRYPTO_CURRENCY:
+                    refresh_data(x, values['-CB-REAL-CURRENCY-'])
+            else:
+                window[event].update(disabled=True)
+                window[current_layout].update(disabled=False)
+                window['-COL-MAIN-'].update(visible=False)
+                window['-COL-DETAILS-'].update(visible=True)
+            current_layout = event
+        # MAIN view
+        if window['-COL-MAIN-'].visible:
+            if match('-B-.*-REFRESH-', event) is not None:
+                refresh_data(event[3:6], values['-CB-REAL-CURRENCY-'])
+
+            elif event == '-CB-REAL-CURRENCY-':
+                for crypto in CRYPTO_CURRENCY:
+                    refresh_data(crypto, values['-CB-REAL-CURRENCY-'])
+
+            elif event == '-CB-THEME-':
+                if values['-CB-THEME-'] == 'MAROCHA':
+                    theme_change('DarkBlue8')
+                elif values['-CB-THEME-'] == 'SIWY':
+                    theme_change('DarkTeal4')
+        # DETAILS view
+        else:
+            handle_event(event, values, window)
+
 window.close()

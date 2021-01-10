@@ -1,3 +1,5 @@
+from builtins import print
+
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -7,6 +9,8 @@ from functions import predict_n_days, load_standard_data_frame
 from my_requests import get_minute_last_day_data_with_limit, get_hourly_last_3_months_data_with_limit, \
     get_all_historical_data_with_limit, get_full_current_info
 from my_requests import *
+
+theme = 'DarkGrey9'
 
 DATA_TYPE = {
     'DAYS': 'DAYS',
@@ -28,6 +32,29 @@ def get_current_data(crypto_currency='BTC', real_currency='USD'):
     openday = response['OPENDAY']
     volumeday = response['VOLUMEDAY']
     return price, highday, lowday, openday, volumeday
+
+
+def get_last_data(data_type=DATA_TYPE['DAYS'],
+                                      limit=1,
+                                      crypto_currency='BTC',
+                                      real_currency='USD'):
+    if data_type == DATA_TYPE['DAYS']:
+        response_frame = pd.DataFrame(
+            get_all_historical_data_with_limit(limit, crypto_currency, real_currency),
+            columns=['high', 'low', 'open', 'volumefrom', 'volumeto', 'close'])
+    elif data_type == DATA_TYPE['HOURS']:
+        response_frame = pd.DataFrame(
+            get_hourly_last_3_months_data_with_limit(limit, crypto_currency, real_currency),
+            columns=['high', 'low', 'open', 'volumefrom', 'volumeto', 'close'])
+    elif data_type == DATA_TYPE['MINUTES']:
+        response_frame = pd.DataFrame(
+            get_minute_last_day_data_with_limit(limit, crypto_currency, real_currency),
+            columns=['high', 'low', 'open', 'volumefrom', 'volumeto', 'close'])
+    else:
+        raise NameError('Zly argument')
+
+    response_frame = response_frame.values.tolist()
+    return response_frame
 
 
 def get_exchange_rate(from_currency, to_currency):
@@ -132,32 +159,30 @@ def update_limit_text(value, data_type):
     return f'Time limit: {years} years {months} months {days} days {hours} hours {minutes} minutes'
 
 
-def update_chart(selected_crypto, selected_real_currency, data_type, limit, current_fig, window):
-    data = None
-    if data_type == DATA_TYPE['DAYS']:
-        print('Days', selected_crypto, selected_real_currency)
-        data = get_hist_data_with_limit_and_type(DATA_TYPE['DAYS'], limit, selected_crypto, selected_real_currency)
-    elif data_type == DATA_TYPE['HOURS']:
-        print('Hours', selected_crypto, selected_real_currency)
-        data = get_hist_data_with_limit_and_type(DATA_TYPE['HOURS'], limit, selected_crypto, selected_real_currency)
-    elif data_type == DATA_TYPE['MINUTES']:
-        print('Minutes', selected_crypto, selected_real_currency)
-        data = get_hist_data_with_limit_and_type(DATA_TYPE['MINUTES'], limit, selected_crypto, selected_real_currency)
+def set_tb_change_color(window, key, value):
+    if value > 0:
+        window[key].update(background_color="#00aa22")
+    elif value < 0:
+        window[key].update(background_color='#aa2200')
+    else:
+        window[key].update(background_color='#666666')
 
-    fig = plt.Figure(figsize=(7, 5), dpi=100)
-    plot = fig.add_subplot(111)
-    plot.plot(data, color='blue', label=f'{data_type} price')
-    plot.set_title(f'{selected_crypto} price')
-    plot.set_xlabel('Timestamp')
-    plot.set_ylabel(f'Price [{selected_real_currency}]')
-    plot.legend()
 
-    canvas = window['-CANVAS-'].TKCanvas
-
-    if current_fig is not None:
-        current_fig.get_tk_widget().forget()
-        plt.close('all')
-    return draw_figure(canvas, fig, loc=(0, 0))
+def refresh_current_data(data, base_key, crypto_curr, real_curr, window):
+    for i in range(len(data)):
+        if i != len(data) - 1:
+            main_key = f'{base_key}{i}-'
+            window[main_key].update(f'{round(data[i], 2)} {real_curr}')
+            if i != 0:
+                temp_change_proc = round(100*data[i]/data[0]-100, 3)
+                temp_change = round(data[i]-data[0], 2)
+                window[f'{main_key}CHANGE-'].update(f'change {temp_change} {real_curr} {temp_change_proc}% ')
+                set_tb_change_color(window, f'{main_key}CHANGE-', temp_change)
+        else:
+            temp_volume = round(data[i], 2)
+            temp_volume2 = round(temp_volume*data[0], 2)
+            window[f'{base_key}{i}-'].update(f'{temp_volume} {crypto_curr}')
+            window[f'{base_key}{i}-VOLUME-'].update(f'{temp_volume2} {real_curr}')
 
 
 def draw_figure(canvas, figure, loc=(0, 0)):
@@ -165,10 +190,3 @@ def draw_figure(canvas, figure, loc=(0, 0)):
     figure_canvas_agg.draw()
     figure_canvas_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
     return figure_canvas_agg
-
-
-# print(get_predicted_data_from_only_price_model(7,'days'))
-# print(get_predicted_data_from_only_price_model(7,'HOURS'))
-# print(get_predicted_data_from_only_price_model(14,'MINUTES'))
-# print(get_predicted_data_from_only_price_model(7,'marocha')) throw exception NameError
-# print(get_current_data())
