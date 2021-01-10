@@ -4,7 +4,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 from models import models_loader
 from functions import predict_n_days
-from my_requests import get_minute_last_day_data_with_limit,get_hourly_last_3_months_data_with_limit, \
+from my_requests import get_minute_last_day_data_with_limit, get_hourly_last_3_months_data_with_limit, \
     get_all_historical_data_with_limit, get_full_current_info
 from my_requests import *
 
@@ -42,24 +42,24 @@ def get_exchange_rate(from_currency, to_currency):
 def get_predicted_data_from_only_price_model(days_to_predict, data_type=DATA_TYPE['MINUTES']):
     if data_type == DATA_TYPE['DAYS']:
         scaler, model = models_loader.get_daily_model()
-        response_frame = pd.DataFrame(get_all_historical_data_with_limit(29), columns=['close'])
+        response_frame = pd.DataFrame(get_all_historical_data_with_limit(59), columns=['close'])
     elif data_type == DATA_TYPE['HOURS']:
         scaler, model = models_loader.get_hourly_model()
-        response_frame = pd.DataFrame(get_hourly_last_3_months_data_with_limit(29), columns=['close'])
+        response_frame = pd.DataFrame(get_hourly_last_3_months_data_with_limit(59), columns=['close'])
     elif data_type == DATA_TYPE['MINUTES']:
         scaler, model = models_loader.get_minutes_model()
-        response_frame = pd.DataFrame(get_minute_last_day_data_with_limit(13), columns=['close'])
+        response_frame = pd.DataFrame(get_minute_last_day_data_with_limit(59), columns=['close'])
     else:
         raise NameError('Zly argument')
     response_frame = response_frame.values.tolist()
     results = []
     for xd in response_frame:
         results.append(*xd)
-    return predict_n_days(model, scaler, days_to_predict, results, 14)
+    return predict_n_days(model, scaler, days_to_predict, results, 6)
 
 
 def get_hist_data_with_limit_and_type(data_type=DATA_TYPE['MINUTES'],
-                                      limit=29,
+                                      limit=59,
                                       crypto_currency='BTC',
                                       real_currency='USD'):
     if data_type == DATA_TYPE['DAYS']:
