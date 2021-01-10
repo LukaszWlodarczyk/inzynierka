@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 from models import models_loader
-from functions import predict_n_days
+from functions import predict_n_days, load_standard_data_frame
 from my_requests import get_minute_last_day_data_with_limit, get_hourly_last_3_months_data_with_limit, \
     get_all_historical_data_with_limit, get_full_current_info
 from my_requests import *
@@ -39,23 +39,43 @@ def get_exchange_rate(from_currency, to_currency):
     return round(price2/price1, 4)
 
 
-def get_predicted_data_from_only_price_model(days_to_predict, data_type=DATA_TYPE['MINUTES']):
+def get_predicted_data_from_only_price_model(days_to_predict, data_type=DATA_TYPE['MINUTES'],
+                                             crypto_currency=CRYPTO_CURRENCY['BTC'], full_data=False):
+    past_period = 60
     if data_type == DATA_TYPE['DAYS']:
-        scaler, model = models_loader.get_daily_model()
-        response_frame = pd.DataFrame(get_all_historical_data_with_limit(59), columns=['close'])
+        if full_data:
+            scaler, model = models_loader.get_full_data_daily_model(crypto_currency)
+            response_frame = load_standard_data_frame(get_all_historical_data_with_limit(past_period-1,
+                                                                                         crypto_currency))
+        else:
+            scaler, model = models_loader.get_daily_model(crypto_currency)
+            response_frame = pd.DataFrame(get_all_historical_data_with_limit(past_period-1, crypto_currency),
+                                          columns=['close'])
     elif data_type == DATA_TYPE['HOURS']:
-        scaler, model = models_loader.get_hourly_model()
-        response_frame = pd.DataFrame(get_hourly_last_3_months_data_with_limit(59), columns=['close'])
+        if full_data:
+            scaler, model = models_loader.get_full_data_daily_model(crypto_currency)
+            response_frame = load_standard_data_frame(get_hourly_last_3_months_data_with_limit(past_period-1,
+                                                                                               crypto_currency))
+        else:
+            scaler, model = models_loader.get_hourly_model(crypto_currency)
+            response_frame = pd.DataFrame(get_hourly_last_3_months_data_with_limit(past_period-1, crypto_currency),
+                                          columns=['close'])
     elif data_type == DATA_TYPE['MINUTES']:
-        scaler, model = models_loader.get_minutes_model()
-        response_frame = pd.DataFrame(get_minute_last_day_data_with_limit(59), columns=['close'])
+        if full_data:
+            scaler, model = models_loader.get_full_data_daily_model(crypto_currency)
+            response_frame = load_standard_data_frame(get_minute_last_day_data_with_limit(past_period-1,
+                                                                                          crypto_currency))
+        else:
+            scaler, model = models_loader.get_minutes_model(crypto_currency)
+            response_frame = pd.DataFrame(get_minute_last_day_data_with_limit(past_period-1, crypto_currency),
+                                          columns=['close'])
     else:
         raise NameError('Zly argument')
     response_frame = response_frame.values.tolist()
     results = []
     for xd in response_frame:
         results.append(*xd)
-    return predict_n_days(model, scaler, days_to_predict, results, 60)
+    return predict_n_days(model, scaler, days_to_predict, results, past_period)
 
 
 def get_hist_data_with_limit_and_type(data_type=DATA_TYPE['MINUTES'],
