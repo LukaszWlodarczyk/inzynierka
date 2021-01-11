@@ -61,8 +61,6 @@ def get_exchange_rate(from_currency, to_currency):
     price1 = get_current_price(CRYPTO_CURRENCY['BTC'], from_currency)
     price2 = get_current_price(CRYPTO_CURRENCY['BTC'], to_currency)
 
-    print(price1, price2, price2/price1)
-
     return round(price2/price1, 4)
 
 
@@ -135,28 +133,6 @@ def get_hist_data_with_limit_and_type(data_type=DATA_TYPE['MINUTES'],
 def change(selected_crypto, selected_real_currency):
     return 100 * get_current_price(selected_crypto, selected_real_currency) / \
            get_yesterday_price(selected_crypto, selected_real_currency) - 100
-
-
-def update_limit_text(value, data_type):
-    years = 0
-    months = 0
-    days = 0
-    hours = 0
-    minutes = 0
-    if data_type == DATA_TYPE['DAYS']:
-        years = divmod(value, 360)[0]
-        months = divmod(value, 30)[0] % 12
-        days = divmod(value, 30)[1]
-    elif data_type == DATA_TYPE['HOURS']:
-        months = divmod(value, 720)[0]
-        days = divmod(value, 24)[0] % 30
-        hours = divmod(value, 24)[1]
-    elif data_type == DATA_TYPE['MINUTES']:
-        days = divmod(value, 1440)[0]
-        hours = divmod(value, 60)[0] % 24
-        minutes = divmod(value, 60)[1]
-
-    return f'Time limit: {years} years {months} months {days} days {hours} hours {minutes} minutes'
 
 
 def set_tb_change_color(window, key, value):

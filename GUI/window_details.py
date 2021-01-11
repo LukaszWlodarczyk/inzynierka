@@ -1,4 +1,5 @@
 from re import match
+import tensorflow as tf
 
 import PySimpleGUI as sg
 
@@ -7,15 +8,16 @@ from GUI.gui_service import *
 from my_requests import CRYPTO_CURRENCY
 
 # -----------------------------------------------------------------------------
+# TODO: add time to prediction data
+# -----------------------------------------------------------------------------
 sg.theme(theme)
 
 current_data = []
 hist_data = []
-# pred_data = [30000, 31000, 32000, 29000, 30000, 31000]
-pred_data = [40000, 41000, 42000, 49000, 40000, 41000]
+pred_data = []
 
-current_last_data_limit = 20
-current_next_data_limit = 5
+current_last_data_limit = 50
+current_next_data_limit = 6
 current_tolerance = 0.5
 
 current_data_type = ''
@@ -44,7 +46,6 @@ layout_details_top = sg.Column([
             [sg.Input(f'{current_tolerance}', enable_events=True, key='-INPUT-TOLERANCE-')],
             [sg.Button('SHOW DETAILS', size=(15, 1), key='-B-SHOW-DETAILS-')]
         ], pad=(5, 5), size=(150, 200))]
-        # ], pad=(5, 5), size=(int(layout_details_size[0]/5), layout_details_size[1]))]
     ]),
      sg.Frame('Chart', [
          [sg.Column([
@@ -54,7 +55,6 @@ layout_details_top = sg.Column([
           sg.Checkbox('OPEN price', enable_events=True, key='-CHB-OPEN-'),
           sg.Checkbox('LOWEST price', enable_events=True, key='-CHB-LOWEST-'),
           sg.Checkbox('HIGHEST price', enable_events=True, key='-CHB-HIGHEST-')]
-         # ], size=(int(layout_details_size[0]/5*4), layout_details_size[1]))]
      ])]
 ])
 
@@ -70,15 +70,15 @@ layout_details_bottom_current = [
             ], size=bottom_small_tile_size),
             sg.Column([
                 [sg.Text('high:'), sg.Text('000000000000 ###', key='-TX-CURRENT-1-')],
-                [sg.Text('change: +000000 ### (+00,00%)', key='-TX-CURRENT-1-CHANGE-')]
+                [sg.Text('change: +000000000 ### (+00,000%)', key='-TX-CURRENT-1-CHANGE-')]
             ], size=bottom_small_tile_size),
             sg.Column([
                 [sg.Text('low:'), sg.Text('000000000000 ###', key='-TX-CURRENT-2-')],
-                [sg.Text('change: +000000 ### (+00,00%)', key='-TX-CURRENT-2-CHANGE-')]
+                [sg.Text('change: +000000000 ### (+00,000%)', key='-TX-CURRENT-2-CHANGE-')]
             ], size=bottom_small_tile_size),
             sg.Column([
                 [sg.Text('open:'), sg.Text('000000000000 ###', key='-TX-CURRENT-3-')],
-                [sg.Text('change: +000000 ### (+00,00%)', key='-TX-CURRENT-3-CHANGE-')]
+                [sg.Text('change: +000000000 ### (+00,000%)', key='-TX-CURRENT-3-CHANGE-')]
             ], size=bottom_small_tile_size),
             sg.Column([
                 [sg.Text('volume:'), sg.Text('0000000000000000 ###', key='-TX-CURRENT-4-')],
@@ -96,19 +96,19 @@ layout_details_bottom_last = [
         [sg.Column([[
             sg.Column([
                 [sg.Text('high:'), sg.Text('000000000000 ###', key='-TX-LAST-0-')],
-                [sg.Text('change: +000000 ### (+00,00%)', key='-TX-LAST-0-CHANGE-')]
+                [sg.Text('change: +000000000 ### (+00,000%)', key='-TX-LAST-0-CHANGE-')]
             ], size=bottom_small_tile_size),
             sg.Column([
                 [sg.Text('low:'), sg.Text('000000000000 ###', key='-TX-LAST-1-')],
-                [sg.Text('change: +000000 ### (+00,00%)', key='-TX-LAST-1-CHANGE-')]
+                [sg.Text('change: +000000000 ### (+00,000%)', key='-TX-LAST-1-CHANGE-')]
             ], size=bottom_small_tile_size),
             sg.Column([
                 [sg.Text('open:'), sg.Text('000000000000 ###', key='-TX-LAST-2-')],
-                [sg.Text('change: +000000 ### (+00,00%)', key='-TX-LAST-2-CHANGE-')]
+                [sg.Text('change: +000000000 ### (+00,000%)', key='-TX-LAST-2-CHANGE-')]
             ], size=bottom_small_tile_size),
             sg.Column([
                 [sg.Text('close:'), sg.Text('000000000000 ###', key='-TX-LAST-5-')],
-                [sg.Text('change: +000000 ### (+00,00%)', key='-TX-LAST-5-CHANGE-')]
+                [sg.Text('change: +000000000 ### (+00,000%)', key='-TX-LAST-5-CHANGE-')]
             ], size=bottom_small_tile_size),
             sg.Column([
                 [sg.Text('volumefrom:'), sg.Text('0000000000000000 ###', key='-TX-LAST-3-')],
@@ -126,32 +126,32 @@ layout_details_bottom_next = [
             sg.Column([
                 [sg.Text('date or time:'), sg.Text('DD:MM:YYYY HH:MM', key='-TX-NEXT-0-TIME-')],
                 [sg.Text('price:'), sg.Text('000000000000 ###', key='-TX-NEXT-0-')],
-                [sg.Text('change: +000000 ### (+00,00%)', key='-TX-NEXT-0-CHANGE-')]
+                [sg.Text('change: +000000000 ### (+00,000%)', key='-TX-NEXT-0-CHANGE-')]
             ], size=bottom_small_tile_size2),
             sg.Column([
                 [sg.Text('date or time:'), sg.Text('DD:MM:YYYY HH:MM', key='-TX-NEXT-1-TIME-')],
                 [sg.Text('price:'), sg.Text('000000000000 ###', key='-TX-NEXT-1-')],
-                [sg.Text('change: +000000 ### (+00,00%)', key='-TX-NEXT-1-CHANGE-')]
+                [sg.Text('change: +000000000 ### (+00,000%)', key='-TX-NEXT-1-CHANGE-')]
             ], size=bottom_small_tile_size2),
             sg.Column([
                 [sg.Text('date or time:'), sg.Text('DD:MM:YYYY HH:MM', key='-TX-NEXT-2-TIME-')],
                 [sg.Text('price:'), sg.Text('000000000000 ###', key='-TX-NEXT-2-')],
-                [sg.Text('change: +000000 ### (+00,00%)', key='-TX-NEXT-2-CHANGE-')]
+                [sg.Text('change: +000000000 ### (+00,000%)', key='-TX-NEXT-2-CHANGE-')]
             ], size=bottom_small_tile_size2),
             sg.Column([
                 [sg.Text('date or time:'), sg.Text('DD:MM:YYYY HH:MM', key='-TX-NEXT-3-TIME-')],
                 [sg.Text('price:'), sg.Text('000000000000 ###', key='-TX-NEXT-3-')],
-                [sg.Text('change: +000000 ### (+00,00%)', key='-TX-NEXT-3-CHANGE-')]
+                [sg.Text('change: +000000000 ### (+00,000%)', key='-TX-NEXT-3-CHANGE-')]
             ], size=bottom_small_tile_size2),
             sg.Column([
                 [sg.Text('date or time:'), sg.Text('DD:MM:YYYY HH:MM', key='-TX-NEXT-4-TIME-')],
                 [sg.Text('price:'), sg.Text('000000000000 ###', key='-TX-NEXT-4-')],
-                [sg.Text('change: +000000 ### (+00,00%)', key='-TX-NEXT-4-CHANGE-')]
+                [sg.Text('change: +000000000 ### (+00,000%)', key='-TX-NEXT-4-CHANGE-')]
             ], size=bottom_small_tile_size2),
             sg.Column([
                 [sg.Text('date or time:'), sg.Text('DD:MM:YYYY HH:MM', key='-TX-NEXT-5-TIME-')],
                 [sg.Text('price:'), sg.Text('000000000000 ###', key='-TX-NEXT-5-')],
-                [sg.Text('change: +000000 ### (+00,00%)', key='-TX-NEXT-5-CHANGE-')]
+                [sg.Text('change: +000000000 ### (+00,000%)', key='-TX-NEXT-5-CHANGE-')]
             ], size=bottom_small_tile_size2),
         ]], pad=(5, 5))]
     ], key='-F-NEXT-')
@@ -178,8 +178,6 @@ def update_chart(window, crypto, real):
     data_low = []
     data_open = []
     data_close = []
-
-    hist_data = get_last_data(DATA_TYPE[current_data_type], current_last_data_limit, crypto, real)
 
     for i in range(len(hist_data) - 1):
         data_high.append(hist_data[i][0])
@@ -222,9 +220,10 @@ def update_chart(window, crypto, real):
 # -----------------------------------------------------------------------------
 def refresh_details_data(crypto, real, window):
     print(f'Refresh details {crypto} {real}')
-    global current_data, hist_data
+    global current_data, hist_data, pred_data, current_canvas_fig
     current_data = get_current_data(crypto, real)
     hist_data = get_last_data(DATA_TYPE[current_data_type], current_last_data_limit, crypto, real)
+    pred_data = get_pred_data(window)
 
     window['-TX-LAST-'].update(f'Last {current_data_type} limit')
     window['-TX-NEXT-'].update(f'Next {current_data_type} limit')
@@ -240,25 +239,51 @@ def refresh_details_data(crypto, real, window):
             window[f'-TX-LAST-{i}-CHANGE-'].update(f'change: {temp_change} {real} {temp_change_proc}%')
             set_tb_change_color(window, f'-TX-LAST-{i}-CHANGE-', temp_change)
 
+        temp = round(hist_data[-2][i], 2)
         if i != 3:
-            window[f'-TX-LAST-{i}-'].update(f'{hist_data[-2][i]} {real}')
+            window[f'-TX-LAST-{i}-'].update(f'{temp} {real}')
         else:
-            window[f'-TX-LAST-{i}-'].update(f'{hist_data[-2][i]} {crypto}')
+            window[f'-TX-LAST-{i}-'].update(f'{temp} {crypto}')
 
-    global current_canvas_fig
+    for i in range(6):
+        # TODO: jakim kurwa cudem to nie wyświetla zaogrąglonej liczby xdd
+        # temp = round(pred_data[i], 2)
+        # print(temp)
+        window[f'-TX-NEXT-{i}-'].update(f'{pred_data[i]} {real}')
+
+        temp_change_proc = round(100 * pred_data[i] / current_data[0] - 100, 3)
+        temp_change = round(pred_data[i] - current_data[0], 2)
+        window[f'-TX-NEXT-{i}-CHANGE-'].update(f'change: {temp_change} {real} {temp_change_proc}%')
+        set_tb_change_color(window, f'-TX-NEXT-{i}-CHANGE-', temp_change)
     current_canvas_fig = update_chart(window, crypto, real)
+
+
+def get_pred_data(window):
+    # TODO: full_data radio button handle
+    print('Time for poop :)')
+    global current_next_data_limit, current_data_type, pred_data
+    data = get_predicted_data_from_only_price_model(
+        current_next_data_limit,
+        current_data_type,
+        window['-CB-CRYPTO-CURRENCY-'].get())
+    tf.keras.backend.clear_session()
+
+    exchange_rate = get_exchange_rate('USD', window['-CB-REAL-CURRENCY-'].get())
+    data = [round(x*exchange_rate, 2) for x in data]
+
+    print('That was fast poop')
+    return data
 
 
 # -----------------------------------------------------------------------------
 def handle_event(event, values, window):
     print('Details event handle')
     global current_data_type, current_canvas_fig
-    if event in ['-DAYS-', '-HOURS-', '-MINUTES-']:
 
+    if event in ['-DAYS-', '-HOURS-', '-MINUTES-']:
         current_data_type = event[1:-1]
         refresh_details_data(values['-CB-CRYPTO-CURRENCY-'], values['-CB-REAL-CURRENCY-'], window)
 
-        pass
     elif event in ['-CB-CRYPTO-CURRENCY-', '-CB-REAL-CURRENCY-']:
         refresh_details_data(values['-CB-CRYPTO-CURRENCY-'], values['-CB-REAL-CURRENCY-'], window)
 
@@ -267,16 +292,17 @@ def handle_event(event, values, window):
 
     elif event == '-B-SHOW-DETAILS-':
         global current_last_data_limit, current_next_data_limit, current_tolerance
-        current_last_data_limit = values['-INPUT-LAST-']
-        current_next_data_limit = values['-INPUT-NEXT-']
-        current_tolerance = values['-INPUT-TOLERANCE-']
+        if int(values['-INPUT-NEXT-']) >= 6:
+            current_last_data_limit = values['-INPUT-LAST-']
+            current_next_data_limit = values['-INPUT-NEXT-']
+            current_tolerance = values['-INPUT-TOLERANCE-']
 
-        current_canvas_fig = update_chart(window, values['-CB-CRYPTO-CURRENCY-'], values['-CB-REAL-CURRENCY-'])
+            refresh_details_data(values['-CB-CRYPTO-CURRENCY-'], values['-CB-REAL-CURRENCY-'], window)
 
     elif match('-CHB-.*-', event) is not None:
         current_canvas_fig = update_chart(window, values['-CB-CRYPTO-CURRENCY-'], values['-CB-REAL-CURRENCY-'])
 
-    elif event == '--INPUT-LAST-':
+    elif event == '-INPUT-LAST-':
         if len(values['-INPUT-LAST-']) and values['-INPUT-LAST-'][-1] not in '0123456789':
             window['-INPUT-LAST-'].update(values['-INPUT-LAST-'][:-1])
 

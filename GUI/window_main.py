@@ -45,8 +45,8 @@ left_bar = sg.Column([
 
             [sg.Frame('Select model to prediction', [
                 [sg.Column([
-                    [sg.Radio('from full data', 'RADIO_MODEL', key='-RB-FULL-DATA-', enable_events=True, default=True)],
-                    [sg.Radio('from only price', 'RADIO_MODEL', key='-RB-ONLY-PRICE-', enable_events=True, )]
+                    [sg.Radio('from only price', 'RADIO_MODEL', key='-RB-ONLY-PRICE-', enable_events=True, default=True)],
+                    [sg.Radio('from full data', 'RADIO_MODEL', key='-RB-FULL-DATA-', enable_events=True)]
                 ], size=(200, 50), pad=(5, 5))]
             ], title_color='black', font='Any 11 bold')],
 
