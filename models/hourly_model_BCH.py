@@ -5,8 +5,8 @@ from keras.layers import LSTM
 from keras.layers import Dropout
 from sklearn.preprocessing import MinMaxScaler
 from joblib import dump
-from my_requests import get_hourly_last_3_months_data
-from functions import splitter, prepare_samples, draw_training_and_validation_lost_plot, save_info
+from requests_module import get_hourly_last_3_months_data
+from preparing_model.functions import splitter, prepare_samples, draw_training_and_validation_lost_plot, save_info
 
 # Initial values
 ONE_BATCH_SIZE = 60
