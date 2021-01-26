@@ -9,8 +9,6 @@ from GUI.gui_service import *
 from my_requests import CRYPTO_CURRENCY
 
 # -----------------------------------------------------------------------------
-# TODO: add time to prediction data
-# -----------------------------------------------------------------------------
 sg.theme(theme)
 
 current_data = []

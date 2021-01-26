@@ -441,9 +441,8 @@ def theme_change(theme):
 
 
 # ====================== MAIN LOOP ============================================
-# TODO: remove comments
-# for crypto in CRYPTO_CURRENCY:
-#     refresh_data(crypto, default_selected_real_currency)
+for crypto in CRYPTO_CURRENCY:
+    refresh_data(crypto, default_selected_real_currency)
 
 
 current_layout = '-MAIN-'
