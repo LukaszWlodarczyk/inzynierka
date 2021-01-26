@@ -7,7 +7,7 @@ from keras.layers import Dense
 from keras.layers import LSTM
 from keras.layers import Dropout
 from sklearn.preprocessing import MinMaxScaler
-from my_requests import get_all_historical_data, cut_input_data_2, cut_results_data_2, get_hourly_last_3_months_data
+from requests_module import get_all_historical_data, cut_input_data_2, cut_results_data_2, get_hourly_last_3_months_data
 
 seven_days = 50
 

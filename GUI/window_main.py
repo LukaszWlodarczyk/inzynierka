@@ -4,7 +4,7 @@ from re import match
 import tensorflow as tf
 
 from GUI.gui_service import *
-from my_requests import REAL_CURRENCY
+from requests_module.my_requests import REAL_CURRENCY
 from window_details import layout_details, handle_event
 
 # from GUI.menu import menubar, handle_menu_click

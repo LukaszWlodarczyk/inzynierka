@@ -1,6 +1,6 @@
 import pandas as pd
 
-import my_requests
+import requests_module
 
 pd.set_option('max_columns', None)
 

@@ -4,8 +4,8 @@ from keras.layers import LSTM
 from keras.layers import Dropout
 from sklearn.preprocessing import MinMaxScaler
 from joblib import dump
-from my_requests import get_all_historical_data
-from functions import load_standard_data_frame, splitter, draw_training_and_validation_lost_plot, prepare_samples, \
+from requests_module import get_all_historical_data
+from preparing_model.functions import load_standard_data_frame, splitter, draw_training_and_validation_lost_plot, prepare_samples, \
     save_info
 
 # Initial values

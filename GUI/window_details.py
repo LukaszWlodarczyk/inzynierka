@@ -6,7 +6,7 @@ import PySimpleGUI as sg
 
 from GUI.gui_service import *
 # from GUI.window_main import window
-from my_requests import CRYPTO_CURRENCY
+from requests_module.my_requests import CRYPTO_CURRENCY
 
 # -----------------------------------------------------------------------------
 sg.theme(theme)
