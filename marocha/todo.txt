@@ -1,13 +1,17 @@
 1. Metoda do testowania modeli (że bierze jakiś tam okres z przeszłości
     przewiduje i porównuje wyniki)
 
-2. Zrobienie widoku predykcji w tabelce pod show details
-2.1 wrzucenie aktualnej daty do programu
+*2. Zrobienie widoku predykcji w tabelce pod show details
+*2.1 wrzucenie aktualnej daty do programu
+*2.2 timestamp na date
 
-3. Włączenie predykcji na main
+*3. Włączenie predykcji na main
+*3.1 z ograniczeniem odświeżania
 
 4. Stworzenie instalatora
 
-5. Stworzenie tolerancji na wykresie
+*5. Stworzenie tolerancji na wykresie
 
 5. Zrobienie zmiany języka
+
+* jakieś gówna do poprawy

@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
-from datetime import date
+from datetime import datetime, timedelta
 from re import match
+import tensorflow as tf
 
 from GUI.gui_service import *
 from my_requests import REAL_CURRENCY
@@ -35,7 +36,10 @@ cb_theme = sg.Combo(
     size=(15, 1),
     key='-CB-THEME-')
 
-text_date_time = sg.Text(date.today().strftime("%B %d, %Y %H:%M:%S"))
+start_time = datetime.now()
+refresh_time = start_time
+refresh_delay = 90
+text_date_time = sg.Text(start_time.strftime("%B %d, %Y %H:%M:%S"))
 
 # -----------------------------------------------------------------------------
 left_bar = sg.Column([
@@ -45,7 +49,8 @@ left_bar = sg.Column([
 
             [sg.Frame('Select model to prediction', [
                 [sg.Column([
-                    [sg.Radio('from only price', 'RADIO_MODEL', key='-RB-ONLY-PRICE-', enable_events=True, default=True)],
+                    [sg.Radio('from only price', 'RADIO_MODEL', key='-RB-ONLY-PRICE-', enable_events=True,
+                              default=True)],
                     [sg.Radio('from full data', 'RADIO_MODEL', key='-RB-FULL-DATA-', enable_events=True)]
                 ], size=(200, 50), pad=(5, 5))]
             ], title_color='black', font='Any 11 bold')],
@@ -357,7 +362,9 @@ window = sg.Window(title="Crypto$", layout=main_layout, element_padding=(0, 0), 
 
 
 def refresh_data(crypto, real):
-    print(f'Refresh {crypto} {real}')
+    global refresh_time, refresh_delay
+    temp_time = datetime.now()
+    print(f'Refresh ({temp_time.strftime("%H:%M:%S")}) {crypto} {real}')
     curr_data = get_current_data(crypto, real)
     hist_data = get_hist_data_with_limit_and_type(DATA_TYPE['MINUTES'], 1439, crypto, real)
 
@@ -371,14 +378,41 @@ def refresh_data(crypto, real):
         window[f'{main_key}CHANGE-'].update(f'change: {temp_change} {real} {temp_change_proc}%')
         set_tb_change_color(window, f'{main_key}CHANGE-', temp_change)
 
-    # TODO: prediction labels
-    # pred_day_price = get_predicted_data_from_only_price_model(1, DATA_TYPE['DAYS'])
-    # pred_hour_price = get_predicted_data_from_only_price_model(1, DATA_TYPE['HOURS'])
-    # pred_minute_price = get_predicted_data_from_only_price_model(1, DATA_TYPE['MINUTES'])
+    if temp_time > refresh_time:
+        print(f'Refreshing main prediction')
+        refresh_time += timedelta(seconds=refresh_delay)
+        pred_day_price = get_predicted_data_from_only_price_model(1,
+                                                                  DATA_TYPE['DAYS'],
+                                                                  crypto)[0]
+        tf.keras.backend.clear_session()
+        pred_hour_price = get_predicted_data_from_only_price_model(1,
+                                                                   DATA_TYPE['HOURS'],
+                                                                   crypto)[0]
+        tf.keras.backend.clear_session()
+        pred_minute_price = get_predicted_data_from_only_price_model(1,
+                                                                     DATA_TYPE['MINUTES'],
+                                                                     crypto)[0]
+        tf.keras.backend.clear_session()
 
-    # -TX - BCH - PRED - M -
+        exchange_rate = get_exchange_rate('USD', real)
+        pred_day_price = round(pred_day_price * exchange_rate, 2)
+        pred_hour_price = round(pred_hour_price * exchange_rate, 2)
+        pred_minute_price = round(pred_minute_price * exchange_rate, 2)
+
+        for data_type, value in {'D': pred_day_price, 'H': pred_hour_price, 'M': pred_minute_price}.items():
+            main_key = f'-TX-{crypto}-PRED-{data_type}-'
+            temp_change_proc = round(100 * value / curr_data[0] - 100, 3)
+            temp_change = round(value - curr_data[0], 2)
+            window[main_key].update(f'{value} {real}')
+            window[f'{main_key}CHANGE-'].update(f'change: {temp_change} {real} {temp_change_proc}%')
+            set_tb_change_color(window, f'{main_key}CHANGE-', temp_change)
+    else:
+        print(f'Refresh main prediction at ({refresh_time.strftime("%H:%M:%S")})')
+
+    print("--- ", (datetime.now()-temp_time))
 
 
+# TODO: Nie dziala
 def theme_change(theme):
     print(theme)
     current_them = sg.LOOK_AND_FEEL_TABLE[theme]
