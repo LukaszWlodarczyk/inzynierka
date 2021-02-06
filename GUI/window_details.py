@@ -7,6 +7,7 @@ import PySimpleGUI as sg
 from GUI.gui_service import *
 # from GUI.window_main import window
 from requests_module.my_requests import CRYPTO_CURRENCY
+import matplotlib.pyplot as plt
 
 # -----------------------------------------------------------------------------
 sg.theme(theme)
@@ -17,7 +18,7 @@ pred_data = []
 
 current_last_data_limit = 50
 current_next_data_limit = 6
-current_tolerance = 0.2
+current_tolerance = 20       # %
 
 current_data_type = ''
 
@@ -180,8 +181,8 @@ def update_chart(window, crypto, real):
     data_low = []
     data_open = []
     data_close = []
-    tolerance_high = [x * (1 + current_tolerance) for x in pred_data]
-    tolerance_low = [x * (1 - current_tolerance) for x in pred_data]
+    tolerance_high = [x * (1 + current_tolerance/100) for x in pred_data]
+    tolerance_low = [x * (1 - current_tolerance/100) for x in pred_data]
 
     for i in range(len(hist_data) - 1):
         data_high.append(hist_data[i][0])
@@ -204,10 +205,10 @@ def update_chart(window, crypto, real):
         plot.plot(series[:len(data_close)], data_high, color='red', label=f'Highest')
 
     connection_plot = [data_close[-1], pred_data[0]]
-    connection_plot_high = [data_close[-1] * (1 + current_tolerance),
-                            pred_data[0] * (1 + current_tolerance)]
-    connection_plot_low = [data_close[-1] * (1 - current_tolerance),
-                           pred_data[0] * (1 - current_tolerance)]
+    connection_plot_high = [data_close[-1] * (1 + current_tolerance/100),
+                            pred_data[0] * (1 + current_tolerance/100)]
+    connection_plot_low = [data_close[-1] * (1 - current_tolerance/100),
+                           pred_data[0] * (1 - current_tolerance/100)]
 
     plot.plot(series[-len(pred_data) - 1:-len(pred_data) + 1], connection_plot, color='limegreen')
     plot.plot(series[-len(pred_data) - 1:-len(pred_data) + 1], connection_plot_high, color='pink')

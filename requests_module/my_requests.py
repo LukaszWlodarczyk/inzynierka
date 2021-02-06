@@ -61,6 +61,3 @@ def get_minute_last_day_data_with_limit(limit, crypto_currency=CRYPTO_CURRENCY['
     return res.json()['Data']['Data']
 
 
-
-
-
