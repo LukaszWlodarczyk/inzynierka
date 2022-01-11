@@ -4,17 +4,17 @@ from joblib import load
 
 def get_daily_model(crypto='BTC'):
     if crypto == 'BCH':
-        model = load_model('../saved_model/BCH_model_for_days_val_lose_6.835738895460963e-05')
-        scaler = load('../saved_model/BCH_scaler_for_model_for_days_val_lose_6.835738895460963e-05')
+        model = load_model('../saved_model/BCH_model_for_days_val_lose_0.0003556078299880028')
+        scaler = load('../saved_model/BCH_scaler_for_model_for_days_val_lose_0.0003556078299880028')
     elif crypto == 'ETH':
-        model = load_model('../saved_model/ETH_model_for_days_val_lose_0.0008011589525267482')
-        scaler = load('../saved_model/ETH_scaler_for_model_for_days_val_lose_0.0008011589525267482')
+        model = load_model('../saved_model/ETH_model_for_days_val_lose_0.0045670755207538605')
+        scaler = load('../saved_model/ETH_scaler_for_model_for_days_val_lose_0.0045670755207538605')
     elif crypto == 'LTC':
-        model = load_model('../saved_model/LTC_model_for_days_val_lose_0.000672103080432862')
-        scaler = load('../saved_model/LTC_scaler_for_model_for_days_val_lose_0.000672103080432862')
+        model = load_model('../saved_model/LTC_model_for_days_val_lose_0.001030375249683857')
+        scaler = load('../saved_model/LTC_scaler_for_model_for_days_val_lose_0.001030375249683857')
     else:
-        model = load_model('../saved_model/BTC_model_for_days_val_lose_0.0008853988256305456')
-        scaler = load('../saved_model/BTC_scaler_for_model_for_days_val_lose_0.0008853988256305456')
+        model = load_model('../saved_model/BTC_model_for_days_val_lose_0.0011318516917526722')
+        scaler = load('../saved_model/BTC_scaler_for_model_for_days_val_lose_0.0011318516917526722')
     return scaler, model
 
 
@@ -36,17 +36,17 @@ def get_full_data_daily_model(crypto='BTC'):
 
 def get_hourly_model(crypto='BTC'):
     if crypto == 'BCH':
-        model = load_model('../saved_model/BCH_model_for_hours_val_lose_0.0012152665294706821')
-        scaler = load('../saved_model/BCH_scaler_for_model_for_hours_val_lose_0.0012152665294706821')
+        model = load_model('../saved_model/BCH_model_for_hours_val_lose_0.0001958483480848372')
+        scaler = load('../saved_model/BCH_scaler_for_model_for_hours_val_lose_0.0001958483480848372')
     elif crypto == 'ETH':
-        model = load_model('../saved_model/ETH_model_for_hours_val_lose_0.003915078938007355')
-        scaler = load('../saved_model/ETH_scaler_for_model_for_hours_val_lose_0.003915078938007355')
+        model = load_model('../saved_model/ETH_model_for_hours_val_lose_0.0007593229529447854')
+        scaler = load('../saved_model/ETH_scaler_for_model_for_hours_val_lose_0.0007593229529447854')
     elif crypto == 'LTC':
-        model = load_model('../saved_model/LTC_model_for_hours_val_lose_0.001086461590602994')
-        scaler = load('../saved_model/LTC_scaler_for_model_for_hours_val_lose_0.001086461590602994')
+        model = load_model('../saved_model/LTC_model_for_hours_val_lose_0.00015368525055237114')
+        scaler = load('../saved_model/LTC_scaler_for_model_for_hours_val_lose_0.00015368525055237114')
     else:
-        model = load_model('../saved_model/BTC_model_for_hours_val_lose_0.004351846408098936')
-        scaler = load('../saved_model/BTC_scaler_for_model_for_hours_val_lose_0.004351846408098936')
+        model = load_model('../saved_model/BTC_model_for_hours_val_lose_0.00048355001490563154')
+        scaler = load('../saved_model/BTC_scaler_for_model_for_hours_val_lose_0.00048355001490563154')
     return scaler, model
 
 
@@ -68,17 +68,19 @@ def get_full_data_hourly_model(crypto='BTC'):
 
 def get_minutes_model(crypto='BTC'):
     if crypto == 'BCH':
-        model = load_model('../saved_model/BCH_model_for_minutes_val_lose_0.0006603752844966948')
-        scaler = load('../saved_model/BCH_scaler_for_model_for_minutes_val_lose_0.0006603752844966948')
+        model = load_model('../saved_model/BCH_model_for_minutes_val_lose_0.0014615935506299138')
+        scaler = load('../saved_model/BCH_scaler_for_model_for_minutes_val_lose_0.0014615935506299138')
     elif crypto == 'ETH':
-        model = load_model('../saved_model/ETH_model_for_minutes_val_lose_0.0016128011047840118')
-        scaler = load('../saved_model/ETH_scaler_for_model_for_minutes_val_lose_0.0016128011047840118')
+        model = load_model('../saved_model/ETH_model_for_minutes_val_lose_0.0014071454061195254')
+        scaler = load('../saved_model/ETH_scaler_for_model_for_minutes_val_lose_0.0014071454061195254')
     elif crypto == 'LTC':
-        model = load_model('../saved_model/LTC_model_for_minutes_val_lose_0.0013784549664705992')
-        scaler = load('../saved_model/LTC_scaler_for_model_for_minutes_val_lose_0.0013784549664705992')
+        model = load_model('../saved_model/LTC_model_for_minutes_val_lose_0.0008961712010204792')
+        scaler = load('../saved_model/LTC_scaler_for_model_for_minutes_val_lose_0.0008961712010204792')
     else:
-        model = load_model('../saved_model/BTC_model_for_minutes_val_lose_0.00028970083803869784')
-        scaler = load('../saved_model/BTC_scaler_for_model_for_minutes_val_lose_0.00028970083803869784')
+        # model = load_model('../saved_model/BTC_model_for_minutes_val_lose_0.00028970083803869784')
+        # scaler = load('../saved_model/BTC_scaler_for_model_for_minutes_val_lose_0.00028970083803869784')
+        model = load_model('../saved_model/BTC_model_for_minutes_val_lose_0.0023628431372344494')
+        scaler = load('../saved_model/BTC_scaler_for_model_for_minutes_val_lose_0.0023628431372344494')
     return scaler, model
 
 

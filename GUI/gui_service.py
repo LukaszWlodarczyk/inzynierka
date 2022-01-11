@@ -4,7 +4,8 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from models import models_loader
 from preparing_model.functions import predict_n_days, load_standard_data_frame
 from requests_module.my_requests import get_minute_last_day_data_with_limit, get_hourly_last_3_months_data_with_limit, \
-    get_all_historical_data_with_limit, get_full_current_info, get_current_price, CRYPTO_CURRENCY, REAL_CURRENCY, get_yesterday_price
+    get_all_historical_data_with_limit, get_full_current_info, get_current_price, CRYPTO_CURRENCY, REAL_CURRENCY, \
+    get_yesterday_price, get_all_historical_data, get_hourly_last_3_months_data, get_minute_last_day_data
 
 theme = 'DarkGrey9'
 

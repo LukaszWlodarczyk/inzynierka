@@ -4,7 +4,7 @@ from keras.layers import Dense
 from keras.layers import LSTM
 from sklearn.preprocessing import MinMaxScaler
 from joblib import dump
-from requests_module import get_all_historical_data
+from requests_module.my_requests import get_all_historical_data
 from preparing_model.functions import splitter, prepare_samples, draw_training_and_validation_lost_plot, save_info
 
 # Initial values

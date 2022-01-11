@@ -5,7 +5,7 @@ from keras.layers import LSTM
 from keras.layers import Dropout
 from sklearn.preprocessing import MinMaxScaler
 from joblib import dump
-from requests_module import get_minute_last_day_data
+from requests_module.my_requests import get_minute_last_day_data
 from preparing_model.functions import splitter, prepare_samples, draw_training_and_validation_lost_plot, save_info
 
 # Initial values
@@ -35,12 +35,12 @@ X_TRAIN, X_TEST, Y_TRAIN, Y_TEST = prepare_samples(ONE_BATCH_SIZE, training_set,
 
 # Build LSTM model
 model = Sequential()
-model.add(LSTM(units=12, return_sequences=False, input_shape=(X_TRAIN.shape[1], 1)))
-model.add(Dropout(0.1))
-# model.add(LSTM(units=16, return_sequences=True))
-# model.add(Dropout(0.2))
-# model.add(LSTM(units=1, return_sequences=False))
-# model.add(Dropout(0.1))
+model.add(LSTM(units=32, return_sequences=True, input_shape=(X_TRAIN.shape[1], 1)))
+model.add(Dropout(0.2))
+model.add(LSTM(units=32, return_sequences=True))
+model.add(Dropout(0.2))
+model.add(LSTM(units=32, return_sequences=False))
+model.add(Dropout(0.2))
 model.add(Dense(units=1))
 
 # Compile and fit model

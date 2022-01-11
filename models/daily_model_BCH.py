@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
@@ -33,7 +34,6 @@ training_set, test_set = splitter(data, TRAIN_TEST_SPLIT_POINT)
 X_TRAIN, X_TEST, Y_TRAIN, Y_TEST = prepare_samples(ONE_BATCH_SIZE, training_set, test_set, X_TRAIN,
                                                    Y_TRAIN, X_TEST, Y_TEST)
 
-
 # Build LSTM model
 model = Sequential()
 model.add(LSTM(units=10, return_sequences=False, input_shape = (X_TRAIN.shape[1], 1)))
@@ -53,8 +53,12 @@ loss = history.history['loss']
 val_loss = history.history['val_loss']
 epochs = range(len(loss))
 
-model.save(f'../saved_model/BCH_model_for_days_val_lose_{val_loss[-1]}')
-dump(sc, f'../saved_model/BCH_scaler_for_model_for_days_val_lose_{val_loss[-1]}')
+# model.save(f'../saved_model/BCH_model_for_days_val_lose_{val_loss[-1]}')
+# dump(sc, f'../saved_model/BCH_scaler_for_model_for_days_val_lose_{val_loss[-1]}')
+
+model.save(f'../saved_model/BCH_model_for_days_new')
+dump(sc, f'../saved_model/BCH_scaler_for_model_for_days_new')
+
 
 save_info(ONE_BATCH_SIZE,BATCH_SIZE,EPOCHS,TRAIN_TEST_SPLIT_POINT,loss,val_loss,model,'BCH','days')
 draw_training_and_validation_lost_plot(epochs, loss, val_loss)
